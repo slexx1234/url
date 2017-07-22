@@ -13,7 +13,7 @@ class Host
      * Host constructor.
      * @param string $host
      */
-    public function __construct($host)
+    public function __construct($host = null)
     {
         $this->host = $host;
     }

@@ -155,12 +155,14 @@ class Path implements \Countable, \IteratorAggregate
                         $pattern = $patterns[$name];
                     } else if (isset(static::$patterns[$matches[2]])) {
                         $pattern = static::$patterns[$matches[2]];
-                    } else if (isset(static::$patterns[$name])) {
-                        $pattern = static::$patterns[$name];
                     } else {
                         $pattern = $matches[2];
                     }
                     $pattern = '/^' . $pattern . '$/';
+                }
+
+                if ($pattern === null && isset(static::$patterns[$name])) {
+                    $pattern = '/^' . static::$patterns[$name] . '$/';
                 }
 
                 if ($pattern && !preg_match($pattern, $this->get($i))) {

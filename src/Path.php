@@ -37,7 +37,10 @@ class Path implements \Countable, \IteratorAggregate
      */
     public function __construct($path = '/')
     {
-        $this->segments = explode('/', trim($path, '/'));
+        $path = trim($path, '/');
+        if (!empty($path)) {
+            $this->segments = explode('/', $path);
+        }
     }
 
     /**

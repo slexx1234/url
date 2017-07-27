@@ -5,9 +5,9 @@ Slexx\Url\Url
 --------------------------------------------
 
 * Slexx\Url\Url
-* [Slexx\Url\Host]()
-* [Slexx\Url\Path]()
-* [Slexx\Url\Query]()
+* [Slexx\Url\Host](https://github.com/slexx1234/url/blob/master/docs/Host.md)
+* [Slexx\Url\Path](https://github.com/slexx1234/url/blob/master/docs/Path.md)
+* [Slexx\Url\Query](https://github.com/slexx1234/url/blob/master/docs/Query.md)
 
 Методы
 --------------------------------------------

@@ -4,9 +4,9 @@ Slexx\Url\Query
 Оглавление
 --------------------------------------------
 
-* [Slexx\Url\Url]()
-* [Slexx\Url\Host]()
-* [Slexx\Url\Path]()
+* [Slexx\Url\Url](https://github.com/slexx1234/url/blob/master/docs/Url.md)
+* [Slexx\Url\Host](https://github.com/slexx1234/url/blob/master/docs/Host.md)
+* [Slexx\Url\Path](https://github.com/slexx1234/url/blob/master/docs/Path.md)
 * Slexx\Url\Query
 
 Методы

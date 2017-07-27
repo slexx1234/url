@@ -4,10 +4,10 @@ Slexx\Url\Path
 Оглавление
 --------------------------------------------
 
-* [Slexx\Url\Url]()
-* [Slexx\Url\Host]()
+* [Slexx\Url\Url](https://github.com/slexx1234/url/blob/master/docs/Url.md)
+* [Slexx\Url\Host](https://github.com/slexx1234/url/blob/master/docs/Host.md)
 * Slexx\Url\Path
-* [Slexx\Url\Query]()
+* [Slexx\Url\Query](https://github.com/slexx1234/url/blob/master/docs/Query.md)
 
 Методы
 --------------------------------------------

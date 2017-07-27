@@ -26,7 +26,8 @@
       "Slexx\\Url\\": "src/"
     },
     "exclude-from-classmap": [
-      "/tests/"
+      "/tests/",
+      "/docs"
     ]
   },
   "scripts": {

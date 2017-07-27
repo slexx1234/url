@@ -1,4 +1,4 @@
-Headers
+Url
 =========================================
 [![Latest Stable Version](https://poser.pugx.org/slexx/url/v/stable)](https://packagist.org/packages/slexx/url) [![Total Downloads](https://poser.pugx.org/slexx/url/downloads)](https://packagist.org/packages/slexx/url) [![Latest Unstable Version](https://poser.pugx.org/slexx/url/v/unstable)](https://packagist.org/packages/slexx/url) [![License](https://poser.pugx.org/slexx/url/license)](https://packagist.org/packages/slexx/url)
 

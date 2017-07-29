@@ -62,10 +62,10 @@ class PathTest extends TestCase
 
     public function testMath()
     {
-        $this->assertEquals(['id' => '5'], (new Path('users/5'))->match('/users/[id]'));
-        $this->assertEquals(['login' => 'lexa'], (new Path('users/lexa'))->match('users/[login:[a-z0-9\-_]+]'));
-        $this->assertEquals(['login' => 'lexa'], (new Path('users/lexa'))->match('/users/[login]', ['login' => '[a-z0-9\-_]+']));
-        $this->assertEquals(['post' => '5', 'comment' => '34', 'action' => 'edit'], (new Path('posts/5/comments/34/edit'))->match('/posts/[post:id]/comments/[comment:id]/[action:alpha]'));
+        $this->assertEquals(['id' => 5], (new Path('users/5'))->match('/users/<id:int>'));
+        $this->assertEquals(['login' => 'lexa'], (new Path('users/lexa'))->match('users/<login:[a-z0-9\-_]+>'));
+        $this->assertEquals(['login' => 'lexa'], (new Path('users/lexa'))->match('/users/<login>'));
+        $this->assertEquals(['post' => 5, 'comment' => 34, 'action' => 'edit'], (new Path('posts/5/comments/34/edit'))->match('/posts/<post:int>/comments/<comment:int>/<action>'));
     }
 }
 

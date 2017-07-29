@@ -229,19 +229,19 @@ class UrlTest extends TestCase
 
     public function testMatch()
     {
-        $this->assertEquals([], (new Url('http://example.com/path'))->match('example.com'));
+        $this->assertEquals(null, (new Url('http://example.com/path'))->match('example.com'));
         $this->assertEquals(null, (new Url('https://example.com/path'))->match('http://example.com'));
-        $this->assertEquals([], (new Url('https://example.com/path'))->match('https://example.com'));
-        $this->assertEquals(['controller' => 'path'], (new Url('https://example.com/path'))->match('https://example.com/[controller]'));
-        $this->assertEquals(null, (new Url('https://example.com/path'))->match('https://example.com/[int]'));
+        $this->assertEquals(null, (new Url('https://example.com/path'))->match('https://example.com'));
+        $this->assertEquals(['controller' => 'path'], (new Url('https://example.com/path'))->match('https://example.com/<controller>'));
+        $this->assertEquals(null, (new Url('https://example.com/path'))->match('https://example.com/<id:int>'));
     }
 
     public function testIs()
     {
-        $this->assertTrue((new Url('http://example.com/path'))->is('example.com'));
+        $this->assertFalse((new Url('http://example.com/path'))->is('example.com'));
         $this->assertFalse((new Url('https://example.com/path'))->is('http://example.com'));
-        $this->assertTrue((new Url('https://example.com/path'))->is('https://example.com'));
-        $this->assertTrue((new Url('https://example.com/path'))->is('https://example.com/[controller]'));
-        $this->assertFalse((new Url('https://example.com/path'))->is('https://example.com/[int]'));
+        $this->assertFalse((new Url('https://example.com/path'))->is('https://example.com'));
+        $this->assertTrue((new Url('https://example.com/path'))->is('https://example.com/<controller>'));
+        $this->assertFalse((new Url('https://example.com/path'))->is('https://example.com/<id:int>'));
     }
 }

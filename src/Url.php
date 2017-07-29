@@ -2,6 +2,8 @@
 
 namespace Slexx\Url;
 
+use Slexx\Pattern\Pattern;
+
 class Url
 {
     /**
@@ -263,41 +265,35 @@ class Url
     }
 
     /**
-     * @param string|Url $rule
-     * @param array $patterns
+     * @param string $rule
      * @return array|null
-     * @example:
-     * (new Url('posts/5/comments/34/edit'))
-     *     ->match('/posts/[post:id]/comments/[comment:id]/[action:alpha]');
-     * // -> ['post' => '5', 'comment' => '34', 'action' => 'edit']
-     *
-     * (new Url('https://blog.example.com/posts/5/comments/34/edit'))
-     *     ->match('/posts/[post:id]/comments/[comment:id]/[action:alpha]');
-     * // -> ['post' => '5', 'comment' => '34', 'action' => 'edit']
-     *
-     * (new Url('https://blog.example.com/posts/5/comments/34/edit'))
-     *     ->match('http://blog.example.com/posts/[post:id]/comments/[comment:id]/[action:alpha]');
-     * // -> null
      */
-    public function match($rule, $patterns = [])
+    public function match($rule)
     {
-        if (!$rule instanceof self) {
-            $rule = new self($rule);
+        $parts = static::parse($rule);
+        $pattern = '';
+
+        if ($parts['scheme'] !== null) {
+            $pattern .= $parts['scheme'] . '://';
+        } else if ($this->scheme !== null) {
+            $pattern .= $this->scheme . '://';
         }
 
-        if ($rule->getScheme() !== null && $rule->getScheme() !== $this->scheme) {
-            return null;
+        if ($parts['host'] !== null) {
+            $pattern .= $parts['host'];
+        } else if (!empty((string) $this->host)) {
+            $pattern .= $this->host . '://';
         }
 
-        if (!empty((string) $rule->getHost()) && (string) $rule->getHost() !== (string) $this->host) {
-            return null;
+        if ($parts['path'] !== null) {
+            $pattern .= '/' . trim($parts['path'], '/') . '[/]';
         }
 
-        return $this->path->match($rule->getPath(), $patterns);
+        return (new Pattern($pattern))->match(($this->scheme !== null ? $this->scheme . '://' : '') . $this->host . $this->path);
     }
 
     /**
-     * @param string|Url $rule
+     * @param string $rule
      * @return bool
      */
     public function is($rule)

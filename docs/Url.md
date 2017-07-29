@@ -222,16 +222,13 @@ var_dump((new Url('http://username:password@hostname:9090/path?arg=value#anchor'
 */
 ```
 
-### Url->match($rule[, $patterns])
-
-Метод работает на основе метода [Host->match](https://github.com/slexx1234/url/blob/master/docs/Path.md#path-matchrule-patterns), он проверяет не только путь запроса, но ещё и схему url и имя хоста.
+### Url->match($pattern)
 
 **Аргументы:**
 
 | Имя         | Тип      | Описание                           |
 | ----------- | -------- | ---------------------------------- |
 | `$rule`     | `string` | Правило разбора пути               |
-| `$patterns` | `array`  | Подправила для проверки переменных |
 
 **Возвращает:** `array`, `null`
 
@@ -243,10 +240,10 @@ $url = new Url('https://example.com/users/5/edit');
 var_dump($url->match('https://')); // -> []
 var_dump($url->match('http://example.com')); // -> null
 var_dump($url->match('https://example.com/posts')); // -> null
-var_dump($url->match('https://example.com/users/[id]/[controller]')); // -> ['id' => '5', 'controller' => 'edit']
+var_dump($url->match('https://example.com/users/<id>/<controller>')); // -> ['id' => '5', 'controller' => 'edit']
 ```
 
-### Url->is($rule)
+### Url->is($pattern)
 
 Проверяет соотвецтвует URL правилу
 
@@ -266,7 +263,7 @@ $url = new Url('https://example.com/users/5/edit');
 var_dump($url->is('https://')); // -> true
 var_dump($url->is('http://example.com')); // -> false
 var_dump($url->is('https://example.com/posts')); // -> false
-var_dump($url->is('https://example.com/users/[id]/[controller]')); true
+var_dump($url->is('https://example.com/users/<id>/<controller>')); true
 ```
 
 ### Url->isAbsolute()

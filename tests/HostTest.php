@@ -40,4 +40,37 @@ class HostTest extends TestCase
         $this->assertFalse((new Host('0.0.0.0'))->isSubdomain());
         $this->assertFalse((new Host('[2001:0db8:11a3:09d7:1f34:8a2e:07a0:765d]'))->isSubdomain());
     }
+
+    public function testIsAscii()
+    {
+        $this->assertTrue((new Host('xn--tst-qla.de'))->isAscii());
+        $this->assertFalse((new Host('täst.de'))->isAscii());
+    }
+
+    public function testIsUnicode()
+    {
+        $this->assertFalse((new Host('xn--tst-qla.de'))->isUnicode());
+        $this->assertTrue((new Host('täst.de'))->isUnicode());
+    }
+
+    public function testIsIdn()
+    {
+        $this->assertTrue((new Host('xn--tst-qla.de'))->isIdn());
+        $this->assertTrue((new Host('täst.de'))->isIdn());
+        $this->assertFalse((new Host('example.com'))->isIdn());
+    }
+
+    public function testToAscii()
+    {
+        $host = new Host('täst.de');
+        $host->toAscii();
+        $this->assertEquals('xn--tst-qla.de', (string) $host);
+    }
+
+    public function testToUnicode()
+    {
+        $host = new Host('xn--tst-qla.de');
+        $host->toUnicode();
+        $this->assertEquals('täst.de', (string) $host);
+    }
 }

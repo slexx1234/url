@@ -108,3 +108,71 @@ var_dump((new Host('www.example.com'))->isSubdomain()); // -> true
 Клонирует объект
 
 **Возвращает:** `Host`
+
+### Host->isAscii()
+
+Проверяется указан ли хост в ASCII кодирокве
+
+**Возвращает:** `bool`
+
+**Пример:**
+
+```php
+(new Host('xn--tst-qla.de'))->isAscii(); // -> true
+(new Host('täst.de'))->isAscii(); // -> false
+```
+
+### Host->isUnicode()
+
+Проверяет задоно ли имя хоста в Unicode кодировке
+
+**Возвращает:** `bool`
+
+**Пример:**
+
+```php
+(new Host('xn--tst-qla.de'))->isUnicode(); // -> false
+(new Host('täst.de'))->isUnicode(); // -> true
+```
+
+### Host->isIdn()
+
+Проверяет является ли домен интернализированным
+
+**Возвращает:** `bool`
+
+**Пример:**
+
+```php
+(new Host('xn--tst-qla.de'))->isIdn(); // -> true
+(new Host('täst.de'))->isIdn(); // -> true
+(new Host('example.com'))->isIdn(); // -> false
+```
+
+### Host->toAscii()
+
+Преобразует имя хоста в ASCII кодировку
+
+**Возвращает:** `void`
+
+**Пример:**
+
+```php
+$host = new Host('täst.de');
+$host->toAscii();
+echo $host; // -> 'xn--tst-qla.de'
+```
+
+### Host->toUnicode()
+
+Преобразует имя хоста в Unicode кодировку
+
+**Возвращает:** `void`
+
+**Пример:**
+
+```php
+$host = new Host('xn--tst-qla.de');
+$host->toAscii();
+echo $host; // -> 'täst.de'
+```

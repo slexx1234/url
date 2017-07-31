@@ -17,7 +17,8 @@
     "email": "slexx1234@gmail.com"
   },
   "require": {
-    "slexx/pattern": "^1.2.0"
+    "slexx/pattern": "^1.2.0",
+    "mso/idna-convert": "^1.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.2"

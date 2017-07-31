@@ -2,6 +2,8 @@
 
 namespace Slexx\Url;
 
+use Mso\IdnaConvert\IdnaConvert;
+
 class Host
 {
     /**
@@ -76,6 +78,72 @@ class Host
     public function __clone()
     {
         return new self($this->__toString());
+    }
+
+    /**
+     * Проверяется указан ли хост в ASCII кодирокве
+     * @return bool
+     * @example:
+     * (new Host('xn--tst-qla.de'))->isAscii(); // -> true
+     * (new Host('täst.de'))->isAscii(); // -> false
+     */
+    public function isAscii()
+    {
+        return mb_detect_encoding($this->host, 'ASCII', true) === 'ASCII';
+    }
+
+    /**
+     * Проверяет задоно ли имя хоста в Unicode кодировке
+     * @return bool
+     * @example:
+     * (new Host('xn--tst-qla.de'))->isUnicode(); // -> false
+     * (new Host('täst.de'))->isUnicode(); // -> true
+     */
+    public function isUnicode()
+    {
+        return !$this->isAscii();
+    }
+
+    /**
+     * Проверяет является ли домен интернализированным
+     * @return bool
+     * @example:
+     * (new Host('xn--tst-qla.de'))->isIdn(); // -> true
+     * (new Host('täst.de'))->isIdn(); // -> true
+     * (new Host('example.com'))->isIdn(); // -> false
+     */
+    public function isIdn()
+    {
+        return mb_strpos($this->host, 'xn--') === 0
+            || !$this->isAscii();
+    }
+
+    /**
+     * Преобразует имя хоста в ASCII кодировку
+     * @return void
+     * @example:
+     * $host = new Host('täst.de');
+     * $host->toAscii();
+     * echo $host; // -> 'xn--tst-qla.de'
+     */
+    public function toAscii()
+    {
+        if ($this->isIdn() && $this->isUnicode())
+            $this->host = (new IdnaConvert())->encode($this->host);
+    }
+
+    /**
+     * Преобразует имя хоста в Unicode кодировку
+     * @return void
+     * @example:
+     * $host = new Host('xn--tst-qla.de');
+     * $host->toAscii();
+     * echo $host; // -> 'täst.de'
+     */
+    public function toUnicode()
+    {
+        if ($this->isIdn() && $this->isAscii())
+            $this->host = (new IdnaConvert())->decode($this->host);
     }
 }
 
